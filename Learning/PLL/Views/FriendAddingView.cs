@@ -34,7 +34,6 @@ namespace SocialNetwork.PLL.Views
 
                 SuccessMessage.Show("Друг добавлен!");
 
-                //user = userService.FindById(user.Id);
             }
 
             catch (UserNotFoundException)

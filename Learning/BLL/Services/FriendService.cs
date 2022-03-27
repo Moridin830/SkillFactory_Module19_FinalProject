@@ -19,6 +19,12 @@ namespace SocialNetwork.BLL.Services
             userRepository = new UserRepository(); 
         }
 
+        public FriendService(IFriendRepository friendRepository, IUserRepository userRepository)
+        {
+            this.friendRepository = new FriendRepository();
+            this.userRepository = new UserRepository();
+        }
+
         public void AddNewFriend(FriendAddingData friendAddingData)
         {
             if (String.IsNullOrEmpty(friendAddingData.FriendEmail))
