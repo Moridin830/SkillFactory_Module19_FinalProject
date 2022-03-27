@@ -13,9 +13,6 @@ namespace SocialNetwork.BLL.Models
         public string Email { get; set; }
         public string Photo { get; set; }
         
-        public IEnumerable<Message> IncomingMessages { get; }
-        public IEnumerable<Message> OutgoingMessages { get; }
-
         public Friend(
             string firstName,
             string lastName,

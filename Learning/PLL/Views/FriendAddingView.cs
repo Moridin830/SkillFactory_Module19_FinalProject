@@ -12,11 +12,11 @@ namespace SocialNetwork.PLL.Views
 {
     public class FriendAddingView
     {
-        UserService userService;
+        FriendService friendService;
         
-        public FriendAddingView(UserService userService)
+        public FriendAddingView(FriendService friendService)
         {
-            this.userService = userService;
+            this.friendService = friendService;
         }
 
         public void Show(User user)
@@ -30,11 +30,11 @@ namespace SocialNetwork.PLL.Views
 
             try
             {
-                userService.AddNewFriend(friendAddingData);
+                friendService.AddNewFriend(friendAddingData);
 
                 SuccessMessage.Show("Друг добавлен!");
 
-                user = userService.FindById(user.Id);
+                //user = userService.FindById(user.Id);
             }
 
             catch (UserNotFoundException)

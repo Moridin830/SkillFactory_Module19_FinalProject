@@ -7,22 +7,22 @@ using SocialNetwork.BLL.Models;
 
 namespace SocialNetwork.PLL.Views
 {
-    public class UserFriendListListView
+    public class UserFriendListView
     {
-        public void Show(IEnumerable<Message> incomingMessages)
+        public void Show(IEnumerable<Friend> friends)
         {
-            Console.WriteLine("Входящие сообщения");
+            Console.WriteLine("Ваши друзья:");
 
 
-            if (incomingMessages.Count() == 0)
+            if (friends.Count() == 0)
             {
-                Console.WriteLine("Входящих сообщения нет");
+                Console.WriteLine("У вас пока нет добавленных друзей. Добавьте кого-нибудь!");
                 return;
             }
 
-            incomingMessages.ToList().ForEach(message =>
+            friends.ToList().ForEach(friend =>
             {
-                Console.WriteLine("От кого: {0}. Текст сообщения: {1}", message.SenderEmail, message.Content);
+                Console.WriteLine($"{friend.Photo}  {friend.FirstName} {friend.LastName} ({friend.Email})");
             });
         }
     }

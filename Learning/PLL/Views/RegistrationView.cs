@@ -46,8 +46,9 @@ namespace SocialNetwork.PLL.Views
                 AlertMessage.Show("Введите корректное значение.");
             }
 
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 AlertMessage.Show("Произошла ошибка при регистрации.");
             }
         }

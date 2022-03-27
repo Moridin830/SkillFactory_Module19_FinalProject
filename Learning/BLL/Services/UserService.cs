@@ -10,6 +10,7 @@ namespace SocialNetwork.BLL.Services
     public class UserService
     {
         MessageService messageService;
+        FriendService friendService;
         IUserRepository userRepository;
         IFriendRepository friendRepository;
         public UserService()
@@ -17,6 +18,7 @@ namespace SocialNetwork.BLL.Services
             userRepository = new UserRepository();
             friendRepository = new FriendRepository();
             messageService = new MessageService();
+            friendService = new FriendService();
         }
 
         public void Register(UserRegistrationData userRegistrationData)
@@ -100,30 +102,15 @@ namespace SocialNetwork.BLL.Services
                 throw new Exception();
         }
 
-        public void AddNewFriend(FriendAddingData friendAddingData)
-        {
-            if (String.IsNullOrEmpty(friendAddingData.FriendEmail))
-            {
-                throw new ArgumentNullException("Введите корректное значение.");
-            };
-
-            var findUserEntity = this.userRepository.FindByEmail(friendAddingData.FriendEmail);
-            if (findUserEntity is null) throw new UserNotFoundException();
-
-            var friendEntity = new FriendEntity()
-            {
-                user_id = friendAddingData.UserId,
-                friend_id = findUserEntity.id
-            };
-
-            if(this.friendRepository.Create(friendEntity) == 0) throw new Exception();
-        }
+        
 
         private User ConstructUserModel(UserEntity userEntity)
         {
             var incomingMessages = messageService.GetIncomingMessagesByUserId(userEntity.id);
 
             var outgoingMessages = messageService.GetOutcomingMessagesByUserId(userEntity.id);
+
+            var friends = friendService.GetAllFriendsByUserId(userEntity.id);
 
             return new User(userEntity.id,
                           userEntity.firstname,
@@ -134,7 +121,8 @@ namespace SocialNetwork.BLL.Services
                           userEntity.favorite_movie,
                           userEntity.favorite_book,
                           incomingMessages,
-                          outgoingMessages
+                          outgoingMessages,
+                          friends
                           );
         }
     }
